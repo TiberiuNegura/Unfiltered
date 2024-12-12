@@ -1,0 +1,28 @@
+<app-auth>
+    <body>
+        <div class="wrapper">
+            <div class="text-center mt-4 name">
+                Unfiltered
+            </div>
+            <form (ngSubmit)="onSubmit()" class="p-3 mt-3">
+                <div class="form-field d-flex align-items-center">
+                    <span class="far fa-user"></span>
+                    <input type="text" placeholder="Username">
+                </div>
+                <div class="form-field d-flex align-items-center">
+                    <span class="fas fa-key"></span>
+                    <input type="password" placeholder="Password">
+                </div>
+                <div class="form-field d-flex align-items-center">
+                    <span class="fas fa-key"></span>
+                    <input type="password" placeholder="Confirm Password">
+                </div>
+                <button class="btn mt-3">Register</button>
+            </form>
+            <div class="text-center fs-6" style="padding-top: 20px;" >
+                <a routerLink="/login">Already have an account?</a>
+            </div>
+        </div>
+   </body>
+</app-auth>
+  

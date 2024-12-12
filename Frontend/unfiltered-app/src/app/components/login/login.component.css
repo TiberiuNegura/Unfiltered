@@ -1,0 +1,119 @@
+/* Importing fonts from Google */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Reseting */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: #2e3b4e;  /* Darker background color */
+    color: #fff;  /* Light text color for contrast */
+}
+
+/* Wrapper Style (Dark Background) */
+.wrapper {
+    max-width: 350px;
+    min-height: 500px;
+    margin: 80px auto;
+    padding: 40px 30px 30px 30px;
+    background-color: #374151;  /* Darker gray background for the wrapper */
+    border-radius: 15px;
+    box-shadow: 
+        0 0 20px rgba(0, 255, 255, 0.6),  /* Cyan glow */
+        0 0 40px rgba(0, 255, 255, 0.3),  /* Larger cyan glow */
+        0 0 80px rgba(0, 255, 255, 0.15); /* Fainter cyan glow */
+}
+
+/* Logo Style */
+.logo {
+    width: 80px;
+    margin: auto;
+}
+
+.logo img {
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0px 0px 3px rgba(255, 255, 255, 0.5),
+        0px 0px 0px 5px #374151,  /* Match the wrapper background color */
+        8px 8px 15px rgba(0, 0, 0, 0.3),
+        -8px -8px 15px rgba(255, 255, 255, 0.1);
+}
+
+/* Text Color for Name */
+.wrapper .name {
+    font-weight: 600;
+    font-size: 1.4rem;
+    letter-spacing: 1.3px;
+    padding-left: 90px;
+    padding-bottom: 20px;
+    color: #e0e0e0;  /* Lighter text color for better contrast on dark background */
+}
+
+/* Form Field Style */
+.wrapper .form-field input {
+    width: 100%;
+    display: block;
+    border: none;
+    outline: none;
+    background: #2a3742;  /* Dark input field background */
+    font-size: 1.2rem;
+    color: #e0e0e0;  /* Light text color inside input fields */
+    padding: 10px 15px 10px 10px;
+    border-radius: 5px;
+}
+
+/* Form Field Container */
+.wrapper .form-field {
+    padding-left: 0px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    box-shadow: inset 8px 8px 8px rgba(0, 0, 0, 0.3), inset -8px -8px 8px rgba(255, 255, 255, 0.05);
+}
+
+/* Icon Style */
+.wrapper .form-field .fas {
+    color: #b0b0b0;  /* Lighter icon color for better contrast */
+}
+
+/* Button Style */
+.wrapper .btn {
+    box-shadow: none;
+    width: 100%;
+    height: 40px;
+    background-color: #007b99;  /* Darker blue button */
+    color: #fff;
+    border-radius: 25px;
+    box-shadow: 3px 3px 8px rgba(0, 255, 255, 0.4),  /* Cyan blue glow */
+                -3px -3px 8px rgba(0, 255, 255, 0.2); /* Subtle negative shadow */
+    letter-spacing: 1.3px;
+}
+
+.wrapper .btn:hover {
+    background-color: #006080;  /* Slightly darker blue on hover */
+}
+
+/* Links */
+.wrapper a {
+    text-decoration: none;
+    font-size: 1.1rem;
+    color: #03A9F4;
+    padding-left: 40px;
+}
+
+.wrapper a:hover {
+    color: #039BE5;
+}
+
+/* Responsive Design for Small Screens */
+@media(max-width: 380px) {
+    .wrapper {
+        margin: 30px 20px;
+        padding: 40px 15px 15px 15px;
+    }
+}
