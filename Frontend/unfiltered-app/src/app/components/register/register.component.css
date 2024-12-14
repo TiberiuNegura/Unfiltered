@@ -1,128 +1,119 @@
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
+/* Importing fonts from Google */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+/* Reseting */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
 body {
-  font-family: "Quicksand", sans-serif;
-  display: grid;
-  place-items: center;
-  height: 100vh;
-  background: #2e3b4e;  /* Darker background color */
-  color: #fff;  /* Light text color for contrast */
+    background: #2e3b4e;  /* Darker background color */
+    color: #fff;  /* Light text color for contrast */
 }
 
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  max-width: 1200px;
-  margin-block: 2rem;
-  gap: 2rem;
-  padding: 1rem;
+/* Wrapper Style (Dark Background) */
+.wrapper {
+    max-width: 350px;
+    min-height: 500px;
+    margin: 80px auto;
+    padding: 40px 30px 30px 30px;
+    background-color: #374151;  /* Darker gray background for the wrapper */
+    border-radius: 15px;
+    box-shadow: 
+        0 0 20px rgba(0, 255, 255, 0.6),  /* Cyan glow */
+        0 0 40px rgba(0, 255, 255, 0.3),  /* Larger cyan glow */
+        0 0 80px rgba(0, 255, 255, 0.15); /* Fainter cyan glow */
 }
 
-img {
-  max-width: 100%;
-  display: block;
-  object-fit: cover;
+/* Logo Style */
+.logo {
+    width: 80px;
+    margin: auto;
 }
 
-.card {
-  display: flex;
-  flex-direction: column;
-  width: clamp(20rem, calc(20rem + 2vw), 22rem);
-  overflow: hidden;
-  box-shadow: 0 .2rem .8rem rgba(0, 0, 0, 0.1);
-  border-radius: 1.25rem; /* Slightly more rounded edges */
-  background: #ECE9E6;
-  background: linear-gradient(to right, #FFFFFF, #ECE9E6);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+.logo img {
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0px 0px 3px rgba(255, 255, 255, 0.5),
+        0px 0px 0px 5px #374151,  /* Match the wrapper background color */
+        8px 8px 15px rgba(0, 0, 0, 0.3),
+        -8px -8px 15px rgba(255, 255, 255, 0.1);
 }
 
-.card:hover {
-  transform: translateY(-5px); /* Slight hover effect */
-  box-shadow: 0 .4rem 1.5rem rgba(0, 0, 0, 0.15);
+/* Text Color for Name */
+.wrapper .name {
+    font-weight: 600;
+    font-size: 1.4rem;
+    letter-spacing: 1.3px;
+    padding-left: 90px;
+    padding-bottom: 20px;
+    color: #e0e0e0;  /* Lighter text color for better contrast on dark background */
 }
 
-.card__body {
-  padding: 1.25rem;
-  display: flex;
-  flex-direction: column;
-  gap: .75rem;
+/* Form Field Style */
+.wrapper .form-field input {
+    width: 100%;
+    display: block;
+    border: none;
+    outline: none;
+    background: #2a3742;  /* Dark input field background */
+    font-size: 1.2rem;
+    color: #e0e0e0;  /* Light text color inside input fields */
+    padding: 10px 15px 10px 10px;
+    border-radius: 5px;
 }
 
-.card__body h4 {
-  font-size: 1.6rem;
-  font-weight: 600;
-  text-transform: capitalize;
-  color: #333;
-  margin-bottom: 1rem;
+/* Form Field Container */
+.wrapper .form-field {
+    padding-left: 0px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    box-shadow: inset 8px 8px 8px rgba(0, 0, 0, 0.3), inset -8px -8px 8px rgba(255, 255, 255, 0.05);
 }
 
-.tag {
-  align-self: flex-start;
-  padding: .25em .75em;
-  border-radius: 1.5rem;
-  font-size: .85rem;
-  font-weight: 500;
+/* Icon Style */
+.wrapper .form-field .fas {
+    color: #b0b0b0;  /* Lighter icon color for better contrast */
 }
 
-.tag + .tag {
-  margin-left: .5em;
+/* Button Style */
+.wrapper .btn {
+    box-shadow: none;
+    width: 100%;
+    height: 40px;
+    background-color: #007b99;  /* Darker blue button */
+    color: #fff;
+    border-radius: 25px;
+    box-shadow: 3px 3px 8px rgba(0, 255, 255, 0.4),  /* Cyan blue glow */
+                -3px -3px 8px rgba(0, 255, 255, 0.2); /* Subtle negative shadow */
+    letter-spacing: 1.3px;
 }
 
-.tag-blue {
-  background: #56CCF2;
-  background: linear-gradient(to bottom, #2F80ED, #56CCF2);
-  color: #fafafa;
+.wrapper .btn:hover {
+    background-color: #006080;  /* Slightly darker blue on hover */
 }
 
-.tag-brown {
-  background: #D1913C;
-  background: linear-gradient(to bottom, #FFD194, #D1913C);
-  color: #fafafa;
+/* Links */
+.wrapper a {
+    text-decoration: none;
+    font-size: 1.1rem;
+    color: #03A9F4;
+    padding-left: 40px;
 }
 
-.tag-red {
-  background: #cb2d3e;
-  background: linear-gradient(to bottom, #ef473a, #cb2d3e);
-  color: #fafafa;
+.wrapper a:hover {
+    color: #039BE5;
 }
 
-.card__footer {
-  display: flex;
-  padding: 1rem;
-  margin-top: auto;
-  background: #f8f8f8;
-  border-top: 1px solid #ddd;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.user {
-  display: flex;
-  gap: .5rem;
-  align-items: center;
-}
-
-.user__image {
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-}
-
-.user__info > small {
-  color: #666;
-  font-size: .85rem;
-}
-
-.user__info h5 {
-  font-weight: 600;
-  color: #333;
+/* Responsive Design for Small Screens */
+@media(max-width: 380px) {
+    .wrapper {
+        margin: 30px 20px;
+        padding: 40px 15px 15px 15px;
+    }
 }
