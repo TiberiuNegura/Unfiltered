@@ -7,6 +7,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { ApiService } from './services/api.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,7 @@ import { ApiService } from './services/api.service';
   imports: [
     HeaderComponent,
     FooterComponent,
-    RouterOutlet
+    RouterOutlet,
     ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
@@ -22,19 +23,19 @@ import { ApiService } from './services/api.service';
 export class AppComponent implements OnInit {
   title = 'unfiltered-app';
 
-  data: any;
+  //data: any;
 
-  constructor(private apiService: ApiService) {}
+  //constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
-    this.apiService.getData().subscribe(
-      (response) => {
-        this.data = response;
-        console.log('Data from API:', this.data);
-      },
-      (error) => {
-        console.error('Error fetching data:', error);
-      }
-    );
+    // this.apiService.getData().subscribe(
+    //   (response) => {
+    //     this.data = response;
+    //     console.log('Data from API:', this.data);
+    //   },
+    //   (error) => {
+    //     console.error('Error fetching data:', error);
+    //   }
+    // );
   }
 }
