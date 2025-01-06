@@ -8,11 +8,17 @@ import { HomeComponent } from '../home/home.component';
 import { relative } from 'path';
 import { ApiService } from '../../services/api.service';
 import { User } from '../../models/user';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
-  imports: [AuthComponent, RouterLink, FormsModule, RouterModule],
+  imports: [
+    AuthComponent,
+    RouterLink,
+    FormsModule,
+    RouterModule,
+    HttpClientModule
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -34,20 +40,7 @@ export class LoginComponent  {
     this.user.username = this.userName;
     this.user.password = this.password;
 
-    console.log(this.userName);
-    console.log(this.password);
-
-    this.apiService.authenticate(this.user, true).subscribe(
-      (response: any) => {
-        // Store JWT token in local storage
-        localStorage.setItem('auth_token', response.token);
-        // Redirect to the home page
-        this.router.navigate(['/home']);
-      },
-      (error: HttpErrorResponse) => {
-        this.errorMessage = error.error.message || 'Login failed';  // Handle errors
-      }
-    );
+    this.apiService.authenticate(this.user, true)
 
     console.log(this.errorMessage);
   }

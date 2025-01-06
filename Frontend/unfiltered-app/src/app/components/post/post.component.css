@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #2e3b4e;
+    color: #fff;
+  }
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px 15px;
+    font-family: Arial, sans-serif;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    font-size: 1.6rem;
+    transition: all 0.3s ease;
+}
+
+.form-input:focus {
+    border-color: #000;
+    outline: none;
+}
+
+.form-label {
+    font-size: 1.4rem;
+    font-weight: normal;
+    margin-bottom: 5px;
+    display: block;
+    color: black;
+}
+
+.text-danger {
+    font-size: 1.2rem;
+    color: red;
+}
+
+.btn {
+    padding: 10px 20px;
+    font-size: 1.6rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-dark {
+    background-color: #333;
+    color: #fff;
+}
+
+.btn-dark:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.sidebar {
+    background: #1f2a38;
+    width: 250px;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    color: #fff;
+}
+
+.sidebar__menu {
+    list-style: none;
+    font-family: 'Poppins', sans-serif;
+
+}
+
+.sidebar__menu li {
+    margin-bottom: 20px;
+}
+
+.sidebar__menu a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.1rem;
+    display: block;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.sidebar__menu a:hover {
+    background: #374151;
+}
