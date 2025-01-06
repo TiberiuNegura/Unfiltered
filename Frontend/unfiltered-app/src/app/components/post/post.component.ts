@@ -57,7 +57,7 @@ export class PostComponent {
     article.body = this.blog.data.body;
     article.title = this.blog.data.title;
     article.description = this.blog.data.description;
-    article.category = this.blog.data.category;
+    article.categoryId = this.blog.data.category;
 
     this.apiService.postArticle(article);
   }

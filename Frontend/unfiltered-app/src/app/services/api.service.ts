@@ -25,7 +25,7 @@ export class ApiService {
       .subscribe({
         next: (response: any) => {
           localStorage.setItem('id', response.userId);
-          localStorage.setItem('id', response.token);
+          localStorage.setItem('token', response.token);
           this.router.navigate(['/home']);
         },
         error: (response) => {
@@ -44,12 +44,13 @@ export class ApiService {
   }
 
   public postArticle(article: Article) {
-    let url = this.server + 'post' + localStorage.getItem('id');
+    let url = this.server + 'article/post/' + localStorage.getItem('id');
+    console.log(url);
 
     this.http.post(url, article)
       .subscribe({
         next: (response: any) => {
-
+          console.log(response.title)
         },
         error: () => {
 
