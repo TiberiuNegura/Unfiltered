@@ -4,13 +4,13 @@ import { Observable } from 'rxjs';
 import { User } from '../models/user';
 import { log } from 'console';
 import { Router } from '@angular/router';
+import { Article } from '../models/article';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  private url = 'http://127.0.0.1:8000/api/';
-  private authUrl = '';
+  private server = 'http://127.0.0.1:8000/api/';
 
   constructor(
     private http: HttpClient,
@@ -19,41 +19,34 @@ export class ApiService {
 
   public authenticate(user: User, login: boolean) {
     const loginStr: string = login ? '1' : '0';
-    this.authUrl = this.url + 'auth' + '/' + loginStr;
-    console.log(this.authUrl);
-    console.log(user);  
+    let authUrl: string = this.server + 'auth' + '/' + loginStr;
 
-    return this.http.post(this.authUrl, user)
+    this.http.post(authUrl, user)
       .subscribe({
         next: (response: any) => {
-          localStorage.setItem('auth_token', response.token);
-          console.log(response.token)
+          localStorage.setItem('id', response.userId);
+          localStorage.setItem('id', response.token);
           this.router.navigate(['/home']);
         },
-        error: () => {
+        error: (response) => {
           console.log('Register failed');
+          console.log(response)
         }
       });
   }
 
   public getData(): Observable<any> {
-    return this.http.get(this.url);
+    return this.http.get(this.server);
   }
 
   public postData(data: any): Observable<any> {
-    return this.http.post(this.url, data);
+    return this.http.post(this.server, data);
   }
 
-  public postArticle(data: any) {
-    let currentUser: string = '';
-    let currentId: string|null = localStorage.getItem('id');
-    if (currentId)
-      currentUser = currentId;
+  public postArticle(article: Article) {
+    let url = this.server + 'post' + localStorage.getItem('id');
 
-    let parameter: HttpParams = new HttpParams();
-    parameter.append('user', currentUser);
-
-    this.http.post(this.url, data, {params: parameter})
+    this.http.post(url, article)
       .subscribe({
         next: (response: any) => {
 

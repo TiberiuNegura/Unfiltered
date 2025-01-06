@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { ApiService } from '../../services/api.service';
+import { Article } from '../../models/article';
 
 @Component({
   selector: 'app-post',
@@ -52,7 +53,13 @@ export class PostComponent {
     this.blog.loading = true;
     this.blog.error = '';
 
-    this.apiService.postArticle(this.blog);
+    let article: Article = new Article();
+    article.body = this.blog.data.body;
+    article.title = this.blog.data.title;
+    article.description = this.blog.data.description;
+    article.category = this.blog.data.category;
+
+    this.apiService.postArticle(article);
   }
 
   resetForm() {

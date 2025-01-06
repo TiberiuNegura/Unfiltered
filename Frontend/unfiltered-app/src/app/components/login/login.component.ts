@@ -22,17 +22,17 @@ import { HttpClient, HttpClientModule, HttpErrorResponse } from '@angular/common
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent  {
+export class LoginComponent {
   userName: string = '';
   password: string = '';
-  errorMessage: string = ''; 
+  errorMessage: string = '';
 
   user: User = new User();
 
   constructor(
     private router: Router,
     private apiService: ApiService
-  ) {}
+  ) { }
 
   onSubmit() {
     console.log('Submitted!');
@@ -40,7 +40,7 @@ export class LoginComponent  {
     this.user.username = this.userName;
     this.user.password = this.password;
 
-    this.apiService.authenticate(this.user, true)
+    this.apiService.authenticate(this.user, true);
 
     console.log(this.errorMessage);
   }
