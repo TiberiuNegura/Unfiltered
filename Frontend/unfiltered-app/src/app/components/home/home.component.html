@@ -3,61 +3,49 @@
     <aside class="sidebar">
       <ul class="sidebar__menu">
         <li><a routerLink="/post">New post</a></li>
-        <li><a href="#">Search</a></li>
-        <li><a href="#">Account settings</a></li>
+        <li><a routerLink="/search">Search</a></li>
+        <li><a routerLink="/account-settings">Account settings</a></li>
+        <li><a routerLink="/edit-post">Edit posts</a></li>
         <li><a routerLink="/login">Logout</a></li>
       </ul>
     </aside>
-    <div class="content">
-      <div class="container">
-        <div class="card">
-          <div class="card__body">
-            <span class="tag tag-blue">Technology</span>
-            <h4>What's new in 2022 Tech</h4>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi perferendis molestiae non nemo doloribus.
-              Doloremque, nihil! At ea atque quidem!</p>
-          </div>
-          <div class="card__footer">
-            <div class="user">
-              <div class="user__info">
-                <h5>Jane Doe</h5>
-                <small>2h ago</small>
+
+    <div class="container">
+      <div *ngFor="let article of articles">
+        <a [routerLink]="['/article', article.id]" class="card-link">
+          <div class="card">
+            <div class="card__body">
+              <span class="tag" [ngClass]="'tag-' + article.category.toLowerCase()">
+                {{ article.category }}
+              </span>
+              <h4>{{ article.title }}</h4>
+              <p>{{ article.description }}</p>
+            </div>
+            <div class="card__footer">
+              <div class="user">
+                <div class="user__info">
+                  <h5>{{ article.author }}</h5>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="card">
-          <div class="card__body">
-            <span class="tag tag-brown">Food</span>
-            <h4>Delicious Food</h4>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi perferendis molestiae non nemo doloribus.
-              Doloremque, nihil! At ea atque quidem!</p>
-          </div>
-          <div class="card__footer">
-            <div class="user">
-              <div class="user__info">
-                <h5>Jony Doe</h5>
-                <small>Yesterday</small>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card__body">
-            <span class="tag tag-red">Automobile</span>
-            <h4>Race to your heart content</h4>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi perferendis molestiae non nemo doloribus.
-              Doloremque, nihil! At ea atque quidem!</p>
-          </div>
-          <div class="card__footer">
-            <div class="user">
-              <div class="user__info">
-                <h5>John Doe</h5>
-                <small>2d ago</small>
-              </div>
-            </div>
-          </div>
-        </div>
+        </a>
+      </div>
+    </div>
+    <div>
+      <div class="pagination">
+        <!-- Previous Button -->
+        <button (click)="goToPreviousPage()" [disabled]="currentPage === 0">
+          Previous
+        </button>
+
+        <!-- Current Page -->
+        <span class="page-font">Page {{ currentPage }}</span>
+
+        <!-- Next Button -->
+        <button (click)="goToNextPage()" [disabled]="!hasMoreArticles">
+          Next
+        </button>
       </div>
     </div>
   </div>

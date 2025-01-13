@@ -1,0 +1,37 @@
+<body>
+    <aside class="sidebar">
+        <ul class="sidebar__menu">
+          <li><a routerLink="/home">Home</a></li>
+          <li><a routerLink="/post">New post</a></li>
+          <li><a routerLink="/search">Search</a></li>
+          <li><a routerLink="/account-settings">Account settings</a></li>
+          <li><a routerLink="/edit-post">Edit posts</a></li>
+          <li><a routerLink="/login">Logout</a></li>
+        </ul>
+    </aside>
+    <div class="article-container">
+        <!-- Category -->
+        <div class="category">
+        <span class="tag" [ngClass]="'tag-' + mapCategory(article.categoryId).toLowerCase()">
+            {{ mapCategory(article.categoryId) }}
+        </span>
+        </div>
+    
+        <!-- Article Title -->
+        <h1 class="article-title">{{ article.title }}</h1>
+    
+        <!-- Author Information -->
+        <div class="author-info">
+            By 
+            <a [routerLink]="['/profile', article.author]" class="author-name">
+              {{ article.author }}
+            </a>
+          </div>
+    
+        <!-- Article Body -->
+        <div class="article-body" style="white-space: pre-line;">
+        <p>{{ article.body }}</p>
+        </div>
+  </div>
+</body>
+  

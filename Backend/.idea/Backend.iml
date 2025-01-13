@@ -206,6 +206,8 @@
       <excludeFolder url="file://$MODULE_DIR$/unfiltered-backend/vendor/symfony/uid" />
       <excludeFolder url="file://$MODULE_DIR$/unfiltered-backend/vendor/willdurand/negotiation" />
       <excludeFolder url="file://$MODULE_DIR$/unfiltered-backend/vendor/zircote/swagger-php" />
+      <excludeFolder url="file://$MODULE_DIR$/unfiltered-backend/vendor/php-webdriver/webdriver" />
+      <excludeFolder url="file://$MODULE_DIR$/unfiltered-backend/vendor/symfony/panther" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

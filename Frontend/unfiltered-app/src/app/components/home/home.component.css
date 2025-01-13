@@ -1,21 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
 
-* {
-  margin: 0;
-  padding: 0;
+*,
+*::before,
+*::after {
   box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
 body {
-  font-family: 'Arial', sans-serif;
-  background: #2e3b4e;
-  color: #fff;
-}
-
-.main-container {
-  display: flex;
+  font-family: "Quicksand", sans-serif;
+  display: grid;
+  place-items: center;
   height: 100vh;
-  background-color: #2e3b4e;
+  background: #2e3b4e;
 }
 
 .sidebar {
@@ -27,12 +25,12 @@ body {
   left: 0;
   bottom: 0;
   color: #fff;
+  z-index: 100;
 }
 
 .sidebar__menu {
   list-style: none;
-  font-family: 'Poppins', sans-serif;
-
+  font-family: "Poppins", sans-serif;
 }
 
 .sidebar__menu li {
@@ -53,54 +51,142 @@ body {
   background: #374151;
 }
 
-.content {
-  margin-left: 250px; /* Same as sidebar width */
-  padding: 20px;
-  width: calc(100% - 250px);
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 1200px;
+  margin-block: 2rem;
+  gap: 2rem;
 }
 
-.container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
+img {
+  max-width: 100%;
+  display: block;
+  object-fit: cover;
 }
 
 .card {
-  background: #93a7c7;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.card__body h4 {
-  color: #142c41;
-}
-
-.card__footer {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #142c41;
+  flex-direction: column;
+  width: clamp(20rem, calc(20rem + 2vw), 22rem);
+  overflow: hidden;
+  box-shadow: 0 .1rem 1rem rgba(0, 0, 0, 0.1);
+  border-radius: 1em;
+  background: #ECE9E6;
+  background: linear-gradient(to right, #FFFFFF, #ECE9E6);
+  margin: 20px;
 }
+
+.card__body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
 
 .tag {
-  display: inline-block;
-  padding: 5px 10px;
-  border-radius: 15px;
-  font-size: 0.8rem;
+  align-self: flex-start;
+  padding: .25em .75em;
+  border-radius: 1em;
+  font-size: .75rem;
 }
 
-.tag-blue {
+.tag + .tag {
+  margin-left: .5em;
+}
+
+.tag-technology {
   background: #3b82f6;
   color: #fff;
 }
 
-.tag-brown {
+.tag-education {
   background: #d97706;
   color: #fff;
 }
 
-.tag-red {
+.tag-politics {
   background: #ef4444;
   color: #fff;
+}
+
+.tag-rants {
+  background: #0c5825;
+  color: #fff;
+}
+
+.tag-lifestyle {
+  background: #460c58;
+  color: #fff;
+}
+
+.card__body h4 {
+  font-size: 1.5rem;
+  text-transform: capitalize;
+}
+
+.card__footer {
+  display: flex;
+  padding: 1rem;
+  margin-top: auto;
+}
+
+.user {
+  display: flex;
+  gap: .5rem;
+}
+
+.user__image {
+  border-radius: 50%;
+}
+
+.user__info > small {
+  color: #666;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;  /* This will center the content horizontally */
+  margin-top: 20px; /* Optional: adjust margin if needed */
+}
+
+.pagination {
+  display: flex;
+  gap: 1rem;  /* Optional: space out the buttons */
+  align-items: center;  /* Vertically align the content */
+  justify-content: center;  /* This will center the content horizontally */
+}
+
+.pagination button {
+  padding: 8px 12px;
+  border: none;
+  background: #f0f0f0;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.pagination button.active {
+  background: #007bff;
+  color: #fff;
+}
+
+.pagination button:hover {
+  background: #007bff;
+  color: #fff;
+}
+
+.page-font {
+  font-family: "Poppins", sans-serif;
+  color: white;
+}
+
+.card-link {
+  text-decoration: none;  /* Remove default underline */
+  color: inherit;
+}
+
+.card-link .card {
+  cursor: pointer;  /* Change the cursor to indicate the card is clickable */
 }

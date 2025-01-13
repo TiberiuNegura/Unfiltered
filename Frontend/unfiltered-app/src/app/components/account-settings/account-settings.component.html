@@ -1,0 +1,82 @@
+<body>
+    <aside class="sidebar">
+        <ul class="sidebar__menu">
+            <li><a routerLink="/home">Home</a></li>
+            <li><a routerLink="/post">New post</a></li>
+            <li><a routerLink="/search">Search</a></li>
+            <li><a routerLink="/account-settings">Account settings</a></li>
+            <li><a routerLink="/edit-post">Edit posts</a></li>
+            <li><a routerLink="/login">Logout</a></li>
+        </ul>
+    </aside>
+    <div class="account-settings-container">
+        <div class="account-content">
+            <div class="profile-header">
+                <!-- User Avatar and Nickname -->
+                <div class="profile-avatar">
+                    <img [src]="user.avatarUrl" alt="User Avatar">
+                </div>
+                <div class="profile-info">
+                    <h2>{{ user.nickname }}</h2>
+                </div>
+            </div>
+
+            <!-- Tabs to switch between Articles and Settings -->
+            <div class="tabs">
+                <button [ngClass]="{'active': activeTab === 'articles'}" (click)="activeTab = 'articles'">Your
+                    Articles</button>
+                <button [ngClass]="{'active': activeTab === 'settings'}"
+                    (click)="activeTab = 'settings'">Settings</button>
+            </div>
+
+            <!-- Articles Section -->
+            <div class="articles-section">
+                <h3>Articles by this user</h3>
+                <div class="articles-container">
+                    <!-- Loop through userArticles to display each article -->
+                    <div class="card" *ngFor="let article of userArticles">
+                        <a [routerLink]="['/article', article.id]" class="card-link">
+                            <div class="card-body">
+                                <h4>{{ article.title }}</h4>
+                                <p>{{ article.description }}</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pagination Section -->
+            <div *ngIf="activeTab === 'articles'">
+                <div class="pagination">
+                    <button (click)="goToPreviousPage()" [disabled]="currentPage === 0">
+                        Previous
+                    </button>
+                    <span class="page-font">Page {{ currentPage + 1 }}</span>
+                    <button (click)="goToNextPage()" [disabled]="!hasMoreArticles">
+                        Next
+                    </button>
+                </div>
+            </div>
+            
+
+            <!-- Settings Section -->
+            <div *ngIf="activeTab === 'settings'" class="settings-section">
+                <form (ngSubmit)="updateSettings()">
+                    <div class="form-group">
+                        <label for="nickname">Nickname</label>
+                        <input type="text" id="nickname" [(ngModel)]="user.nickname" name="nickname" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" [(ngModel)]="user.password" name="password" required>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="save-btn">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>

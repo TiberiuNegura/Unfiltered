@@ -1,0 +1,276 @@
+/* Account Settings Page */
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #2e3b4e;
+    font-family: "Poppins", sans-serif;
+}
+
+.sidebar {
+    background: #1f2a38;
+    width: 250px;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    color: #fff;
+    z-index: 100;
+}
+
+.sidebar__menu {
+    list-style: none;
+    font-family: "Poppins", sans-serif;
+}
+
+.sidebar__menu li {
+    margin-bottom: 20px;
+}
+
+.sidebar__menu a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.1rem;
+    display: block;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.sidebar__menu a:hover {
+    background: #374151;
+}
+
+.account-settings-container {
+    display: flex;
+    margin-left: 250px;
+    /* Adjust for sidebar width */
+}
+
+.account-content {
+    flex: 1;
+    padding: 30px;
+    margin-left: 30px;
+    /* Space between the sidebar and content */
+    background-color: #2e3b4e;
+    /* Matching background color */
+    color: #fff;
+    font-family: "Poppins", sans-serif;
+    /* Make sure the text is visible on this background */
+}
+
+/* Profile Header */
+.profile-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.profile-avatar {
+    margin-right: 15px;
+}
+
+.profile-avatar img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-info h2 {
+    font-size: 24px;
+    color: #fff;
+    /* White text to contrast with dark background */
+}
+
+/* Tabs for Switching Between Sections */
+.tabs {
+    display: flex;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ddd;
+}
+
+.tabs button {
+    flex: 1;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    text-align: center;
+    font-size: 16px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    transition: background 0.3s;
+}
+
+.tabs button.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+/* Settings Section */
+.settings-section form {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.settings-section .form-group {
+    margin: 20px;
+}
+
+.settings-section .form-group label {
+    font-size: 16px;
+    margin: 20px;
+    color: #fff;
+}
+
+.settings-section .form-group input {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.settings-section .form-group input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.settings-section .save-btn {
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.settings-section .save-btn:hover {
+    background-color: #0056b3;
+}
+
+.save-btn:focus {
+    outline: none;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .account-settings-container {
+        flex-direction: column;
+        margin-left: 0;
+    }
+
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .profile-avatar {
+        margin-bottom: 10px;
+    }
+
+    .profile-info h2 {
+        font-size: 22px;
+    }
+
+    .tabs {
+        flex-direction: column;
+    }
+
+    .tabs button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+/* Articles Section */
+.articles-section {
+    margin-bottom: 30px;
+    color: #fff;
+}
+
+.articles-section h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.articles-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-body h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.card-body p {
+    font-size: 14px;
+    color: #555;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.pagination button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.pagination button[disabled] {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.pagination button:hover:not([disabled]) {
+    background-color: #0056b3;
+}
+
+.page-font {
+    font-size: 16px;
+    color: #fff;
+}

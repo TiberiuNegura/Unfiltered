@@ -93,3 +93,13 @@ body {
 .sidebar__menu a:hover {
     background: #374151;
 }
+
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.btn-danger {
+    background-color: red;
+    color: white;
+}

@@ -13,8 +13,6 @@ import { HttpClient, HttpClientModule, provideHttpClient, withInterceptorsFromDi
   selector: 'app-root',
   standalone: true,
   imports: [
-    HeaderComponent,
-    FooterComponent,
     RouterOutlet
     ],
   templateUrl: './app.component.html',

@@ -5,4 +5,5 @@ export class Article {
     public categoryId: number = 0;
     public body: string = '';
     public description: string = '';
+    public author: string = '';
 }

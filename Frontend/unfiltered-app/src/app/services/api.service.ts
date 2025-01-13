@@ -45,16 +45,23 @@ export class ApiService {
 
   public postArticle(article: Article) {
     let url = this.server + 'article/post/' + localStorage.getItem('id');
-    console.log(url);
 
-    this.http.post(url, article)
-      .subscribe({
-        next: (response: any) => {
-          console.log(response.title)
-        },
-        error: () => {
+    return this.http.post(url, article);
+  }
 
-        }
-      });
+  public getArticles(page: number) {
+    return this.http.get(`${this.server}article/latest/${page}`);
+  }
+
+  public getArticlesByUser(page: number, nickname: string) {
+    return this.http.get(`${this.server}article/user/${nickname}/${page}`);
+  }
+
+  public getArticlesByCategory(page: number, category: string) {
+    return this.http.get(`${this.server}article/latest/${page}`);
+  }
+
+  public getArticle(articleId: number) {
+    return this.http.get(`${this.server}article/${articleId}`);
   }
 }

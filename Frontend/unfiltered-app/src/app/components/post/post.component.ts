@@ -21,6 +21,9 @@ export class PostComponent {
     private apiService: ApiService
   ) {}
 
+  hasError: boolean = false;
+  posted: boolean = false;
+
   blog = {
     data: {
       title: '',
@@ -59,7 +62,17 @@ export class PostComponent {
     article.description = this.blog.data.description;
     article.categoryId = this.blog.data.category;
 
-    this.apiService.postArticle(article);
+    this.apiService.postArticle(article)
+      .subscribe({
+        next: () => {
+          this.blog.loading = false;
+          this.posted = true;
+        },
+        error: () => {
+          this.blog.loading = false;
+          this.hasError = true;
+        }
+      });
   }
 
   resetForm() {

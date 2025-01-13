@@ -213,6 +213,8 @@
       <path value="$PROJECT_DIR$/unfiltered-backend/vendor/api-platform/doctrine-orm" />
       <path value="$PROJECT_DIR$/unfiltered-backend/vendor/zircote/swagger-php" />
       <path value="$PROJECT_DIR$/unfiltered-backend/vendor/nelmio/api-doc-bundle" />
+      <path value="$PROJECT_DIR$/unfiltered-backend/vendor/symfony/panther" />
+      <path value="$PROJECT_DIR$/unfiltered-backend/vendor/php-webdriver/webdriver" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.4">

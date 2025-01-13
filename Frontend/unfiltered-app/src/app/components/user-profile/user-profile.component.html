@@ -1,0 +1,53 @@
+<body>
+    <aside class="sidebar">
+        <ul class="sidebar__menu">
+          <li><a routerLink="/home">Home</a></li>
+          <li><a routerLink="/post">New post</a></li>
+          <li><a routerLink="/search">Search</a></li>
+          <li><a routerLink="/account-settings">Account settings</a></li>
+          <li><a routerLink="/edit-post">Edit posts</a></li>
+          <li><a routerLink="/login">Logout</a></li>
+        </ul>
+    </aside>
+    <div class="profile-container">
+        <!-- User Info Section -->
+        <div class="user-info">
+            <div class="user-icon"></div>
+            <h2 class="user-nickname">{{userNickname}}</h2>
+        </div>
+
+        <!-- Separation Line -->
+        <hr class="separator" />
+
+        <!-- Articles Section -->
+        <div class="articles-section">
+            <h3>Articles by this user</h3>
+            <div class="articles-container">
+                <div class="card" *ngFor="let article of userArticles">
+                    <a [routerLink]="['/article', article.id]" class="card-link">
+                        <div class="card-body">
+                            <h4>{{ article.title }}</h4>
+                            <p>{{ article.description }}</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="pagination">
+              <!-- Previous Button -->
+              <button (click)="goToPreviousPage()" [disabled]="currentPage === 0">
+                Previous
+              </button>
+      
+              <!-- Current Page -->
+              <span class="page-font">Page {{ currentPage }}</span>
+      
+              <!-- Next Button -->
+              <button (click)="goToNextPage()" [disabled]="!hasMoreArticles">
+                Next
+              </button>
+            </div>
+          </div>
+    </div>
+</body>

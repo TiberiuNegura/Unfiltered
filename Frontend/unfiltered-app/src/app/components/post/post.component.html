@@ -1,37 +1,32 @@
 <body>
     <aside class="sidebar">
         <ul class="sidebar__menu">
-          <li><a routerLink="/home">Home</a></li>
-          <li><a href="#">Search</a></li>
-          <li><a href="#">Account settings</a></li>
-          <li><a routerLink="/login">Logout</a></li>
+            <li><a routerLink="/home">Home</a></li>
+            <li><a routerLink="/search">Search</a></li>
+            <li><a routerLink="/account-settings">Account settings</a></li>
+            <li><a routerLink="/edit-post">Edit posts</a></li>
+            <li><a routerLink="/login">Logout</a></li>
         </ul>
-      </aside>
-      <div class="container">
+    </aside>
+    <div class="container">
         <div class="row py-5">
             <div class="col-md-6 col-12" *ngIf="!categoryList.loading && !categoryList.error">
                 <form #blogForm="ngForm" (ngSubmit)="saveBlog()">
                     <!-- Blog Title -->
                     <div class="mb-3">
                         <label class="form-label">Blog Title*</label>
-                        <input type="text" class="form-input" 
-                               [class.is-invalid]="title.touched && title.invalid" 
-                               required #title="ngModel" 
-                               [(ngModel)]="blog.data.title" 
-                               name="blogTitle">
+                        <input type="text" class="form-input" [class.is-invalid]="title.touched && title.invalid"
+                            required #title="ngModel" [(ngModel)]="blog.data.title" name="blogTitle">
                         <small class="text-danger" *ngIf="title.touched && title.invalid">
                             Please provide a blog title.
                         </small>
                     </div>
-    
+
                     <!-- Blog Category -->
                     <div class="mb-3">
                         <label class="form-label">Select Category*</label>
-                        <select class="form-input" 
-                                [class.is-invalid]="categoryId.touched && categoryId.invalid" 
-                                required #categoryId="ngModel" 
-                                [(ngModel)]="blog.data.category" 
-                                name="categoryId">
+                        <select class="form-input" [class.is-invalid]="categoryId.touched && categoryId.invalid"
+                            required #categoryId="ngModel" [(ngModel)]="blog.data.category" name="categoryId">
                             <option *ngFor="let category of categoryList.items" [value]="category._id">
                                 {{ category.name | titlecase }}
                             </option>
@@ -40,45 +35,45 @@
                             Please select a category.
                         </small>
                     </div>
-    
+
                     <!-- Blog Body -->
                     <div class="mb-3">
                         <label class="form-label">Body*</label>
-                        <textarea class="form-input" 
-                                  style="height: 200px;" 
-                                  [class.is-invalid]="body.touched && body.invalid" 
-                                  required #body="ngModel" 
-                                  [(ngModel)]="blog.data.body" 
-                                  name="blogBody"></textarea>
+                        <textarea class="form-input" style="height: 200px;"
+                            [class.is-invalid]="body.touched && body.invalid" required #body="ngModel"
+                            [(ngModel)]="blog.data.body" name="blogBody"></textarea>
                         <small class="text-danger" *ngIf="body.touched && body.invalid">
                             Please provide the blog content.
                         </small>
                     </div>
                     <div class="mb-3">
-                      <label class="form-label">Description*</label>
-                      <textarea class="form-input"
-                                style="height: 100px;" 
-                                [class.is-invalid]="description.touched && description.invalid" 
-                                required #description="ngModel" 
-                                [(ngModel)]="blog.data.description" 
-                                name="blogDescription"></textarea>
-                      <small class="text-danger" *ngIf="description.touched && description.invalid">
-                          Please provide a description.
-                      </small>
-                  </div>
-                    
+                        <label class="form-label">Description*</label>
+                        <textarea class="form-input" style="height: 100px;"
+                            [class.is-invalid]="description.touched && description.invalid" required
+                            #description="ngModel" [(ngModel)]="blog.data.description"
+                            name="blogDescription"></textarea>
+                        <small class="text-danger" *ngIf="description.touched && description.invalid">
+                            Please provide a description.
+                        </small>
+                    </div>
+
                     <!-- Form Error -->
                     <p *ngIf="blog.error" class="text-danger">
                         {{ blog.error }}
                     </p>
-    
+
                     <!-- Submit Button -->
-                    <button type="submit" class="btn btn-dark" 
-                            [disabled]="blogForm.invalid || blog.loading">
-                        {{ blog.loading ? 'Saving blog...' : 'Save Blog' }}
+                    <button type="submit" class="btn" [ngClass]="
+                        {
+                            'btn-dark': !hasError && !blog.loading && !posted, 
+                            'btn-danger': hasError, 
+                            'btn-success': !hasError && !blog.loading && blog.data.title && blog.data.category && blog.data.body && posted
+                        }" 
+                        [disabled]="blog.loading || !blog.data.title || !blog.data.category || !blog.data.body">
+                        {{ blog.loading ? 'Saving...' : (hasError ? 'Error' : (posted ? 'Saved' : 'Save Blog')) }}
                     </button>
                 </form>
             </div>
         </div>
-    </div>    
-  </body>
+    </div>
+</body>
