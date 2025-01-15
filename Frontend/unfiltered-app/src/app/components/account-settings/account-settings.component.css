@@ -154,6 +154,18 @@ body {
     transition: background 0.3s;
 }
 
+.settings-section .delete-btn {
+    padding: 12px;
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background 0.3s;
+    margin-left: 20px;
+}
+
 .settings-section .save-btn:hover {
     background-color: #0056b3;
 }
@@ -274,3 +286,191 @@ body {
     font-size: 16px;
     color: #fff;
 }
+
+.user-icon {
+    width: 90px;
+    height: 80px;
+    background-color: #ccc;
+    background-image: url('./../../../../images/user-avatar.png');
+    background-size: cover;
+    border-radius: 50%;
+    margin-right: 1rem;
+}
+
+.edit-icon {
+    width: 20px;
+    height: 20px;
+    background-color: #ccc;
+    background-image: url('./../../../../images/edit.png');
+    background-size: cover;
+}
+
+.delete-icon {
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    background-image: url('./../../../../images/delete.png');
+}
+
+.settings-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #2e3b4e; /* Ensure background matches */
+}
+
+.settings-menu button {
+    margin: 5px 0;
+}
+
+.input-container {
+    margin-top: 20px;
+}
+
+.input-container input {
+    padding: 5px;
+    font-size: 1rem;
+    margin-right: 10px;
+}
+
+.input-container button {
+    padding: 5px 15px;
+}
+
+.delete-confirmation {
+    margin-top: 20px;
+    font-size: 1rem;
+}
+
+.delete-confirmation button {
+    padding: 5px 15px;
+    margin: 5px;
+}
+
+/* Wrapper Styles */
+.wrapper {
+    padding: 20px;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Menu List Styles */
+.wrapper ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.wrapper ul li {
+    margin: 10px 0;
+}
+
+.wrapper ul li button {
+    display: block;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 5px;
+    background: #374151;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Hover Effect */
+.wrapper ul li button:hover {
+    background: #007bff;
+    color: #fff;
+}
+
+.wrapper ul li button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease-in-out;
+}
+
+.wrapper ul li button:hover::before {
+    left: 0;
+}
+
+/* Additional Styling for Visual Appeal */
+.wrapper ul li button:active {
+    transform: scale(0.98);
+}
+
+.btn {
+    width: 200px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.save-btn {
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background 0.3s;
+    height: 35px;
+}
+
+.delete-btn {
+    padding: 12px;
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background 0.3s;
+    height: 35px;
+}
+
+.delete-btn-cancel {
+    padding: 12px;
+    background-color: grey;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background 0.3s;
+    height: 35px;
+}
+
+.banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    background-color: #4caf50; /* Green */
+  }
+  
+  .banner.success {
+    background-color: #4caf50; /* Green */
+  }
+  
+  .banner.error {
+    background-color: #f44336; /* Red */
+  }
+  
+  .banner button {
+    color: green;
+    margin: 10px 0;
+    font-weight: bold;
+  }
+  

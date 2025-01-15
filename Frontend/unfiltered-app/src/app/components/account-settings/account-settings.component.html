@@ -4,8 +4,6 @@
             <li><a routerLink="/home">Home</a></li>
             <li><a routerLink="/post">New post</a></li>
             <li><a routerLink="/search">Search</a></li>
-            <li><a routerLink="/account-settings">Account settings</a></li>
-            <li><a routerLink="/edit-post">Edit posts</a></li>
             <li><a routerLink="/login">Logout</a></li>
         </ul>
     </aside>
@@ -14,7 +12,7 @@
             <div class="profile-header">
                 <!-- User Avatar and Nickname -->
                 <div class="profile-avatar">
-                    <img [src]="user.avatarUrl" alt="User Avatar">
+                    <div class="user-icon"></div>
                 </div>
                 <div class="profile-info">
                     <h2>{{ user.nickname }}</h2>
@@ -23,60 +21,93 @@
 
             <!-- Tabs to switch between Articles and Settings -->
             <div class="tabs">
-                <button [ngClass]="{'active': activeTab === 'articles'}" (click)="activeTab = 'articles'">Your
+                <button [ngClass]="{'active': activeTab === 'articles'}" (click)="switchTab('articles')">Your
                     Articles</button>
                 <button [ngClass]="{'active': activeTab === 'settings'}"
-                    (click)="activeTab = 'settings'">Settings</button>
+                    (click)="switchTab('settings')">Settings</button>
             </div>
 
             <!-- Articles Section -->
-            <div class="articles-section">
-                <h3>Articles by this user</h3>
-                <div class="articles-container">
-                    <!-- Loop through userArticles to display each article -->
-                    <div class="card" *ngFor="let article of userArticles">
-                        <a [routerLink]="['/article', article.id]" class="card-link">
-                            <div class="card-body">
-                                <h4>{{ article.title }}</h4>
-                                <p>{{ article.description }}</p>
+            <div *ngIf="activeTab === 'articles'">
+                <div class="articles-section">
+                    <div class="articles-container">
+                        <!-- Loop through userArticles to display each article -->
+                        <div class="card" *ngFor="let article of userArticles">
+                            <a [routerLink]="['/article', article.id]" class="card-link">
+                                <div class="card-body">
+                                    <h4>{{ article.title }}</h4>
+                                    <p>{{ article.description }}</p>
+                                </div>
+                            </a>
+
+                            <!-- Footer with edit and delete icons -->
+                            <div class="card-footer">
+                                <button class="icon-btn">
+                                    <a [routerLink]="['/post', true, article.id]">
+                                        <div class="edit-icon"></div>
+                                    </a>
+                                </button>
+                                <button (click)="deleteArticle(article.id)" class="icon-btn">
+                                    <div class="delete-icon"></div>
+                                </button>
                             </div>
-                        </a>
+                        </div>
                     </div>
                 </div>
             </div>
-            
+
             <!-- Pagination Section -->
             <div *ngIf="activeTab === 'articles'">
                 <div class="pagination">
                     <button (click)="goToPreviousPage()" [disabled]="currentPage === 0">
                         Previous
                     </button>
-                    <span class="page-font">Page {{ currentPage + 1 }}</span>
+                    <span class="page-font">Page {{ currentPage }}</span>
                     <button (click)="goToNextPage()" [disabled]="!hasMoreArticles">
                         Next
                     </button>
                 </div>
             </div>
-            
+
 
             <!-- Settings Section -->
-            <div *ngIf="activeTab === 'settings'" class="settings-section">
-                <form (ngSubmit)="updateSettings()">
-                    <div class="form-group">
-                        <label for="nickname">Nickname</label>
-                        <input type="text" id="nickname" [(ngModel)]="user.nickname" name="nickname" required>
-                    </div>
+            <div *ngIf="activeTab === 'settings'" class="settings-menu">
+                <div class="wrapper">
+                    <ul>
+                        <li><button (click)="selectOption('nickname')" class="btn">Change Nickname</button></li>
+                        <li><button (click)="selectOption('password')" class="btn">Change Password</button></li>
+                        <li><button (click)="selectOption('delete')" class="btn">Delete Account</button></li>
+                    </ul>
+                </div>
+                <!--
+                <button (click)="selectOption('nickname')">Change Nickname</button>
+                <button (click)="selectOption('password')">Change Password</button>
+                <button (click)="selectOption('delete')">Delete Account</button>
+            -->
 
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" [(ngModel)]="user.password" name="password" required>
-                    </div>
+                <!-- Change Nickname -->
+                <div *ngIf="selectedOption === 'nickname'" class="input-container">
+                    <input [(ngModel)]="newNickname" placeholder="Enter new nickname" />
+                    <button (click)="saveNickname()" class="save-btn">Save</button>
+                </div>
 
-                    <div class="form-group">
-                        <button type="submit" class="save-btn">Save Changes</button>
-                    </div>
-                </form>
+                <!-- Change Password -->
+                <div *ngIf="selectedOption === 'password'" class="input-container">
+                    <input [(ngModel)]="newPassword" type="password" placeholder="Enter new password" />
+                    <button (click)="savePassword()" class="save-btn">Save</button>
+                </div>
+
+                <!-- Delete Account Confirmation -->
+                <div *ngIf="selectedOption === 'delete'" class="delete-confirmation">
+                    <p>Are you sure you want to delete your account?</p>
+                    <button (click)="onDelete()" class="delete-btn">Yes, delete my account</button>
+                    <button (click)="cancel()" class="delete-btn-cancel">Cancel</button>
+                </div>
             </div>
         </div>
     </div>
+    <div class="banner" *ngIf="success">
+        <span>Updated!</span>
+    </div>
+
 </body>

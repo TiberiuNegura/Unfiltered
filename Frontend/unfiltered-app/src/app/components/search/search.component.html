@@ -1,1 +1,96 @@
-<p>search works!</p>
+<body>
+    <aside class="sidebar">
+        <ul class="sidebar__menu">
+            <li><a routerLink="/home">Home</a></li>
+            <li><a routerLink="/post">New post</a></li>
+            <li><a routerLink="/account-settings">Account settings</a></li>
+            <li><a routerLink="/login">Logout</a></li>
+        </ul>
+    </aside>
+    <div class="content">
+        <div class="search-page">
+            <!-- Your search page content -->
+            <div class="search-bar-container">
+                <input type="text" class="search-input"
+                    [placeholder]="searchType === 'articles' ? 'Search for articles...' : 'Search for users...'"
+                    (keydown.enter)="onSearch($event)" />
+                <div class="search-options">
+                    <button class="search-option" [ngClass]="{'active': searchType === 'articles'}"
+                        (click)="setSearchType('articles')">
+                        Articles
+                    </button>
+                    <button class="search-option" [ngClass]="{'active': searchType === 'users'}"
+                        (click)="setSearchType('users')">
+                        Users
+                    </button>
+                </div>
+                <button class="filter-button" *ngIf="searchType === 'articles'" (click)="toggleFilter()">
+                    Filter
+                </button>
+            </div>
+
+            <div class="filters-container" *ngIf="showFilter && searchType === 'articles'">
+                <label for="filter-category">Filter by Category:</label>
+                <select id="filter-category" class="filter-select" name="categoryId"
+                    (change)="onCategorySelected($event)">
+                    <option *ngFor="let category of categories" [ngValue]="category.id">
+                        {{ category.name }}
+                    </option>
+                </select>
+            </div>
+
+            <hr class="separator" />
+
+            <div class="content-section">
+                <div *ngIf="searchType === 'articles'" class="article-cards">
+                    <div *ngFor="let article of articles">
+                        <a [routerLink]="['/article', article.id]" class="card-link">
+                            <div class="card">
+                                <div class="card__body">
+                                    <span class="tag" [ngClass]="'tag-' + article.category.toLowerCase()">
+                                        {{ article.category }}
+                                    </span>
+                                    <h4>{{ article.title }}</h4>
+                                    <p>{{ article.description }}</p>
+                                </div>
+                                <div class="card__footer">
+                                    <div class="user">
+                                        <div class="user__info">
+                                            <h5>{{ article.author }}</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div *ngIf="searchType === 'users'" class="user-cards">
+                    <div *ngFor="let user of users" class="card__body">
+                        <div>
+                            <app-user-card 
+                              [id]="user.id" 
+                              [nickname]="user.nickname">
+                            </app-user-card>
+                          </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pagination">
+                <!-- Previous Button -->
+                <button (click)="goToPreviousPage()" [disabled]="currentPage === 0">
+                    Previous
+                </button>
+
+                <!-- Current Page -->
+                <span class="page-font">Page {{ currentPage }}</span>
+
+                <!-- Next Button -->
+                <button (click)="goToNextPage()" [disabled]="!hasMoreArticles">
+                    Next
+                </button>
+            </div>
+
+        </div>
+    </div>
+</body>

@@ -34,7 +34,7 @@ export class UserProfileComponent implements OnInit {
     }
     
     fetchArticles() {
-      this.apiService.getArticlesByUser(this.currentPage, this.userNickname)
+      this.apiService.getArticlesByUserNickname(this.currentPage, this.userNickname)
       .subscribe({
         next: (response: any) => {
           this.userArticles = response.map((article: any) => {

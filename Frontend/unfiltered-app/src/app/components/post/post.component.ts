@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { Article } from '../../models/article';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-post',
@@ -15,14 +16,18 @@ import { Article } from '../../models/article';
   templateUrl: './post.component.html',
   styleUrl: './post.component.css'
 })
-export class PostComponent {
+export class PostComponent implements OnInit {
 
   constructor(
-    private apiService: ApiService
-  ) {}
+    private apiService: ApiService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
 
   hasError: boolean = false;
   posted: boolean = false;
+  isEdit: boolean = false;
+  editArticleId: number = 0;
 
   blog = {
     data: {
@@ -47,7 +52,58 @@ export class PostComponent {
     ],
   };
 
+  ngOnInit(): void {
+    if (this.route.snapshot.paramMap.get('edit') != null) {
+      this.isEdit = Boolean(this.route.snapshot.paramMap.get('edit'));
+    }
+
+    if (!this.isEdit) {
+      return;
+    }
+
+    if (this.route.snapshot.paramMap.get('editId') != null) {
+      this.editArticleId = Number(this.route.snapshot.paramMap.get('editId'));
+    }
+
+    this.apiService.getArticle(this.editArticleId)
+      .subscribe({
+        next: (response: any) => {
+          this.blog.data.body = response.body;
+          this.blog.data.title = response.title;
+          this.blog.data.category = response.category;
+          this.blog.data.description = response.description;
+          this.blog.loading = false;
+        },
+        error: () => {
+
+        }
+      })
+  }
+
   saveBlog() {
+    if (this.isEdit) {
+      let updatedArticle: Article = new Article();
+      updatedArticle.body = this.blog.data.body;
+      updatedArticle.title = this.blog.data.title;
+      updatedArticle.description = this.blog.data.description;
+      updatedArticle.categoryId = this.blog.data.category;
+
+      console.log(updatedArticle.categoryId);
+      console.log(this.blog.data.category);
+
+      this.apiService.updateArticle(this.editArticleId, updatedArticle)
+        .subscribe({
+          next: () => {
+            this.router.navigate(["/account-settings"]);
+          },
+          error: () => {
+
+          }
+        })
+
+      return;
+    }
+
     if (!this.blog.data.title || !this.blog.data.category || !this.blog.data.body) {
       this.blog.error = 'All fields are required!';
       return;
@@ -67,6 +123,7 @@ export class PostComponent {
         next: () => {
           this.blog.loading = false;
           this.posted = true;
+          this.router.navigate(['/home']);
         },
         error: () => {
           this.blog.loading = false;

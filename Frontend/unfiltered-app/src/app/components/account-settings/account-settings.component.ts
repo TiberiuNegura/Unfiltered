@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
-import { CommonEngine } from '@angular/ssr/node';
+import { Router, RouterLink } from '@angular/router';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-account-settings',
@@ -15,28 +15,94 @@ import { CommonEngine } from '@angular/ssr/node';
   styleUrl: './account-settings.component.css'
 })
 export class AccountSettingsComponent implements OnInit {
-
-  activeTab: string = 'articles';  // Default active tab
+  activeTab: string = 'articles';
+  userNickname: string = '';
   user = {
-    avatarUrl: 'path-to-avatar-image.jpg',  // Replace with actual avatar URL
-    nickname: 'UserNickname',
-    password: '', // Placeholder, should be handled securely
+    nickname: '',
+    password: '',
   };
   hasMoreArticles: boolean = false;
   currentPage: number = 0;
-
   userArticles: any[] = [];
+  selectedOption: string = '';
+  newPassword: string = '';
+  newNickname: string = '';
+  success: boolean = false;
 
-  constructor() { }
+  constructor(
+    private apiService: ApiService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
-    
+    this.fetchUser();
+    this.fetchArticles();
+
+    console.log(this.user.nickname)
   }
 
-  viewArticle(articleId: number) {
+  fetchArticles() {
+    this.apiService.getArticlesByUserId(this.currentPage, localStorage.getItem('id'))
+      .subscribe({
+        next: (response: any) => {
+          this.userArticles = response.map((article: any) => {
+            return {
+              title: article.title,
+              body: article.body,
+              description: article.description,
+              category: this.mapCategory(article.category),
+              author: article.author,
+              id: article.id
+            }
+          });
+        },
+        error: (response) => {
+          console.error("Error fetching articles");
+        }
+      });
   }
 
-  editArticle(articleId: number) {
+  fetchUser() {
+    this.apiService.getUser()
+      .subscribe({
+        next: (response: any) => {
+          console.log(response.nickname)
+          this.user.nickname = response.nickname;
+          this.user.password = response.password;
+        },
+        error: () => {
+
+        }
+      });
+  }
+
+  mapCategory(category: any): string {
+    let categoryId: number = Number(category);
+
+    const categories: { [key: number]: string } = {
+      1: 'Technology',
+      2: 'Lifestyle',
+      3: 'Education',
+      4: 'Politics',
+      5: 'Rants'
+    };
+
+    return categories[categoryId] || 'Unknown';
+  }
+
+  deleteArticle(articleId: number) {
+    this.apiService.deleteArticle(articleId)
+      .subscribe({
+        next: (response: any) => {
+          console.log(response.success);
+          if (Boolean(response.success)) {
+            window.location.reload();
+          }
+        },
+        error: (response) => {
+          console.log(response);
+        }
+      });
   }
 
   updateSettings() {
@@ -45,11 +111,96 @@ export class AccountSettingsComponent implements OnInit {
     // Implement logic to update the user settings (e.g., call an API)
   }
 
-  goToNextPage() {
-    
+  goToPreviousPage(): void {
+    if (this.currentPage > 0) {
+      this.currentPage--;
+      this.fetchArticles();
+    }
   }
 
-  goToPreviousPage() {
-    
+  goToNextPage(): void {
+    if (this.hasMoreArticles) {
+      this.currentPage++;
+      this.fetchArticles();
+    }
+  }
+
+  switchTab(tab: string): void {
+    this.activeTab = tab;
+
+    if (tab === 'articles') {
+      this.fetchArticles();
+    } else {
+      this.fetchUser();
+    }
+  }
+
+  onDelete() {
+    this.apiService.deleteUser()
+      .subscribe({
+        next: () => {
+          this.router.navigate(["/login"]);
+        },
+        error: () => {
+
+        }
+      });
+  }
+
+  onSaveChanges() {
+    this.apiService.updateUser()
+      .subscribe({
+        next: () => {
+
+        },
+        error: () => {
+
+        }
+      });
+  }
+
+  cancel() {
+    this.selectedOption = '';
+  }
+
+  savePassword() {
+    this.apiService.updateUserPassword(this.newPassword)
+      .subscribe({
+        next: (response: any) => {
+          if (Boolean(response.success)) {
+            this.success = true;
+            setTimeout(() => this.success = false, 3000);
+          }
+        },
+        error: (response: any) => {
+          console.log(response)
+        }
+      });
+  }
+
+  saveNickname() {
+    console.log(this.newNickname)
+    this.apiService.updateUserNickname(this.newNickname)
+      .subscribe({
+        next: (response: any) => {
+          console.log(response)
+          if (Boolean(response.success)) {
+            this.success = true;
+            setTimeout(() => this.success = false, 3000);
+            this.fetchUser();
+          }
+        },
+        error: (response: any) => {
+          console.log(response)
+        }
+      });
+  }
+
+  selectOption(option: string) {
+    this.selectedOption = option;
+  }
+
+  clear() {
+    this.success = false;
   }
 }
