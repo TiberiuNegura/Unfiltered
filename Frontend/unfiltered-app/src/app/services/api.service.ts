@@ -21,18 +21,7 @@ export class ApiService {
     const loginStr: string = login ? '1' : '0';
     let authUrl: string = this.server + 'auth' + '/' + loginStr;
 
-    this.http.post(authUrl, user)
-      .subscribe({
-        next: (response: any) => {
-          localStorage.setItem('id', response.userId);
-          sessionStorage.setItem('token', response.token);
-          this.router.navigate(['/home']);
-        },
-        error: (response) => {
-          console.log('Register failed');
-          console.log(response)
-        }
-      });
+    return this.http.post(authUrl, user, { withCredentials: true });
   }
 
   public getData(): Observable<any> {
@@ -44,9 +33,17 @@ export class ApiService {
   }
 
   public postArticle(article: Article) {
-    let url = this.server + 'article/post/' + localStorage.getItem('id');
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found');
+      return;
+    }
 
-    return this.http.post(url, article);
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    let url = this.server + 'article/post';
+
+    return this.http.post(url, article, { headers });
   }
 
   public getArticles(page: number) {
@@ -62,7 +59,15 @@ export class ApiService {
   }
 
   public getArticlesByUserId(page: number, id: string | null) {
-    return this.http.get(`${this.server}article/user/${id}/${page}`);
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found');
+      return;
+    }
+
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.http.get(`${this.server}article/user/${page}`, { headers });
   }
 
   public getArticlesByCategory(page: number, category: number) {
@@ -90,36 +95,54 @@ export class ApiService {
   }
 
   public getUser() {
-    const id: number = Number(localStorage.getItem('id'));
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found');
+      return;
+    }
 
-    return this.http.get(`${this.server}user/${id}`);
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.http.get(`${this.server}user`, { headers });
   }
 
   public deleteUser() {
-    const id: number = Number(localStorage.getItem('id'));
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found');
+      return;
+    }
 
-    return this.http.delete(`${this.server}user/delete/${id}`);
-  }
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-  public updateUser() {
-    const id: number = Number(localStorage.getItem('id'));
-
-    return this.http.delete(`${this.server}user/update/${id}`);
+    return this.http.delete(`${this.server}user/delete`, { headers });
   }
 
   public updateUserNickname(newNickname: string) {
-    const id: number = Number(localStorage.getItem('id'));
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found');
+      return;
+    }
 
-    const body = {nickname: newNickname};
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-    return this.http.put(`${this.server}user/update/nickname/${id}`, body);
+    const body = { nickname: newNickname };
+
+    return this.http.put(`${this.server}user/update/nickname`, body, { headers });
   }
 
   public updateUserPassword(newPassword: string) {
-    const id: number = Number(localStorage.getItem('id'));
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found');
+      return;
+    }
 
-    const body = {password: newPassword};
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-    return this.http.put(`${this.server}user/update/pwd/${id}`, body);
+    const body = { password: newPassword };
+
+    return this.http.put(`${this.server}user/update/pwd`, body, { headers });
   }
 }

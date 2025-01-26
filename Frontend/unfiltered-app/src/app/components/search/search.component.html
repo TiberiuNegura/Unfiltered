@@ -42,6 +42,10 @@
             <hr class="separator" />
 
             <div class="content-section">
+                <div *ngIf="!hasContent" class="no-articles-container">
+                    <div class="no-articles-icon"></div>
+                    <p class="no-articles-text">{{contentMessage}}</p>
+                </div>
                 <div *ngIf="searchType === 'articles'" class="article-cards">
                     <div *ngFor="let article of articles">
                         <a [routerLink]="['/article', article.id]" class="card-link">
@@ -92,5 +96,8 @@
             </div>
 
         </div>
+    </div>
+    <div class="banner" *ngIf="hasError">
+        <span>{{errorMessage}}</span>
     </div>
 </body>

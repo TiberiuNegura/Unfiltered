@@ -5,6 +5,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { Article } from '../../models/article';
 import { Router } from '@angular/router';
+import { ErrorCodes } from '../../error.codes';
 
 @Component({
   selector: 'app-post',
@@ -24,7 +25,9 @@ export class PostComponent implements OnInit {
     private route: ActivatedRoute
   ) { }
 
+  errorMessage: string = '';
   hasError: boolean = false;
+  hasServerError: boolean = false;
   posted: boolean = false;
   isEdit: boolean = false;
   editArticleId: number = 0;
@@ -68,11 +71,23 @@ export class PostComponent implements OnInit {
     this.apiService.getArticle(this.editArticleId)
       .subscribe({
         next: (response: any) => {
-          this.blog.data.body = response.body;
-          this.blog.data.title = response.title;
-          this.blog.data.category = response.category;
-          this.blog.data.description = response.description;
-          this.blog.loading = false;
+          let errorCode: ErrorCodes = Number(response.code);
+
+          if (errorCode == ErrorCodes.NO_ERROR) {
+            this.blog.data.body = response.data.body;
+            this.blog.data.title = response.data.title;
+            this.blog.data.category = response.data.category;
+            this.blog.data.description = response.data.description;
+            this.blog.loading = false;
+
+            return;
+          }
+
+          if(errorCode == ErrorCodes.ARTICLE_NOT_FOUND) {
+            this.hasServerError = true;
+            this.errorMessage = "Article not found!";
+            setTimeout(() => this.hasServerError = false, 3000);
+          }
         },
         error: () => {
 
@@ -119,7 +134,7 @@ export class PostComponent implements OnInit {
     article.categoryId = this.blog.data.category;
 
     this.apiService.postArticle(article)
-      .subscribe({
+      ?.subscribe({
         next: () => {
           this.blog.loading = false;
           this.posted = true;

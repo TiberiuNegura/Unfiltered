@@ -75,4 +75,7 @@
             </div>
         </div>
     </div>
+    <div class="banner" *ngIf="hasServerError">
+        <span>{{errorMessage}}</span>
+    </div>
 </body>

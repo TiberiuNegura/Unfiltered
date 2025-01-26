@@ -15,7 +15,7 @@
                     <div class="user-icon"></div>
                 </div>
                 <div class="profile-info">
-                    <h2>{{ user.nickname }}</h2>
+                    <h2>{{ userNickname }}</h2>
                 </div>
             </div>
 
@@ -29,6 +29,10 @@
 
             <!-- Articles Section -->
             <div *ngIf="activeTab === 'articles'">
+                <div *ngIf="!hasContent" class="no-articles-container">
+                    <div class="no-articles-icon"></div>
+                    <p class="no-articles-text">No articles available at the moment.</p>
+                </div>
                 <div class="articles-section">
                     <div class="articles-container">
                         <!-- Loop through userArticles to display each article -->
@@ -109,5 +113,7 @@
     <div class="banner" *ngIf="success">
         <span>Updated!</span>
     </div>
-
+    <div class="banner-error" *ngIf="hasError">
+        <span>{{errorMessage}}</span>
+    </div>
 </body>

@@ -316,7 +316,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #2e3b4e; /* Ensure background matches */
+    background-color: #2e3b4e;
+    /* Ensure background matches */
 }
 
 .settings-menu button {
@@ -457,20 +458,70 @@ body {
     font-weight: bold;
     z-index: 1000;
     transition: all 0.3s ease;
-    background-color: #4caf50; /* Green */
-  }
-  
-  .banner.success {
-    background-color: #4caf50; /* Green */
-  }
-  
-  .banner.error {
-    background-color: #f44336; /* Red */
-  }
-  
-  .banner button {
+    background-color: #4caf50;
+    /* Green */
+}
+
+.banner.success {
+    background-color: #4caf50;
+    /* Green */
+}
+
+.banner.error {
+    background-color: #f44336;
+    /* Red */
+}
+
+.banner button {
     color: green;
     margin: 10px 0;
     font-weight: bold;
-  }
-  
+}
+
+.banner-error {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    background-color: red;
+}
+
+.no-articles-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+    /* Optional, adjust based on your layout */
+}
+
+.no-articles-icon {
+    width: 100px;
+    /* Adjust size as needed */
+    height: 100px;
+    background-image: url('./../../../../images/no-content.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-bottom: 10px;
+    /* Space between the image and the text */
+}
+
+.no-articles-text {
+    font-size: 18px;
+    /* Adjust font size */
+    font-weight: 500;
+    /* Medium font weight */
+    color: white;
+    /* Neutral text color */
+    margin: 0;
+    /* Remove default margins */
+    font-family: "Quicksand", sans-serif;
+}

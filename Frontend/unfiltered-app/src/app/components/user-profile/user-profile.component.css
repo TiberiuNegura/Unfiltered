@@ -21,18 +21,18 @@ body {
     bottom: 0;
     color: #fff;
     z-index: 100;
-  }
-  
-  .sidebar__menu {
+}
+
+.sidebar__menu {
     list-style: none;
     font-family: "Poppins", sans-serif;
-  }
-  
-  .sidebar__menu li {
+}
+
+.sidebar__menu li {
     margin-bottom: 20px;
-  }
-  
-  .sidebar__menu a {
+}
+
+.sidebar__menu a {
     color: #ffffff;
     text-decoration: none;
     font-size: 1.1rem;
@@ -40,11 +40,11 @@ body {
     padding: 10px 15px;
     border-radius: 5px;
     transition: background 0.3s;
-  }
-  
-  .sidebar__menu a:hover {
+}
+
+.sidebar__menu a:hover {
     background: #374151;
-  }
+}
 
 /* Overall container */
 .profile-container {
@@ -163,4 +163,52 @@ body {
 .pagination button:hover {
     background: #007bff;
     color: #fff;
+}
+
+.banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    background-color: red;
+}
+
+.no-articles-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+    /* Optional, adjust based on your layout */
+}
+
+.no-articles-icon {
+    width: 100px;
+    /* Adjust size as needed */
+    height: 100px;
+    background-image: url('./../../../../images/no-content.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-bottom: 10px;
+    /* Space between the image and the text */
+}
+
+.no-articles-text {
+    font-size: 18px;
+    /* Adjust font size */
+    font-weight: 500;
+    /* Medium font weight */
+    color: white;
+    /* Neutral text color */
+    margin: 0;
+    /* Remove default margins */
+    font-family: "Quicksand", sans-serif;
 }

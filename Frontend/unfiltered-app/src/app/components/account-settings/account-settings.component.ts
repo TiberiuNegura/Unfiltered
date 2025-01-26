@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { ApiService } from '../../services/api.service';
+import { ErrorCodes } from '../../error.codes';
 
 @Component({
   selector: 'app-account-settings',
@@ -17,10 +18,6 @@ import { ApiService } from '../../services/api.service';
 export class AccountSettingsComponent implements OnInit {
   activeTab: string = 'articles';
   userNickname: string = '';
-  user = {
-    nickname: '',
-    password: '',
-  };
   hasMoreArticles: boolean = false;
   currentPage: number = 0;
   userArticles: any[] = [];
@@ -28,6 +25,10 @@ export class AccountSettingsComponent implements OnInit {
   newPassword: string = '';
   newNickname: string = '';
   success: boolean = false;
+
+  hasError: boolean = false;
+  hasContent: boolean = true;
+  errorMessage: string = '';
 
   constructor(
     private apiService: ApiService,
@@ -38,23 +39,37 @@ export class AccountSettingsComponent implements OnInit {
     this.fetchUser();
     this.fetchArticles();
 
-    console.log(this.user.nickname)
+    console.log(this.userNickname)
   }
 
   fetchArticles() {
     this.apiService.getArticlesByUserId(this.currentPage, localStorage.getItem('id'))
-      .subscribe({
+      ?.subscribe({
         next: (response: any) => {
-          this.userArticles = response.map((article: any) => {
-            return {
-              title: article.title,
-              body: article.body,
-              description: article.description,
-              category: this.mapCategory(article.category),
-              author: article.author,
-              id: article.id
-            }
-          });
+          let errorCode: ErrorCodes = Number(response.code);
+
+          if (errorCode == ErrorCodes.NO_ERROR) {
+            this.userArticles = response.data.map((article: any) => {
+              return {
+                title: article.title,
+                body: article.body,
+                description: article.description,
+                category: this.mapCategory(article.category),
+                author: article.author,
+                id: article.id
+              }
+            });
+          }
+
+          if (errorCode == ErrorCodes.UNAUTHORIZED) {
+            this.router.navigate(["/login"]);
+            return;
+          }
+
+          if (errorCode == ErrorCodes.NO_ARTICLES) {
+            this.hasContent = false;
+            return;
+          }
         },
         error: (response) => {
           console.error("Error fetching articles");
@@ -64,14 +79,30 @@ export class AccountSettingsComponent implements OnInit {
 
   fetchUser() {
     this.apiService.getUser()
-      .subscribe({
+      ?.subscribe({
         next: (response: any) => {
-          console.log(response.nickname)
-          this.user.nickname = response.nickname;
-          this.user.password = response.password;
-        },
-        error: () => {
+          let errorCode: ErrorCodes = Number(response.code);
 
+          if (errorCode == ErrorCodes.NO_ERROR) {
+            this.userNickname = response.data.nickname;
+            return;
+          }
+
+          if (errorCode == ErrorCodes.USER_NOT_FOUND) {
+            this.hasError = true;
+            setTimeout(() => this.hasError = false, 3000);
+            this.errorMessage = 'User not found';
+
+            return;
+          }
+
+          if (errorCode == ErrorCodes.UNAUTHORIZED) {
+            this.router.navigate(["/login"]);
+            return;
+          }
+        },
+        error: (response: any) => {
+          console.error(response);
         }
       });
   }
@@ -94,9 +125,17 @@ export class AccountSettingsComponent implements OnInit {
     this.apiService.deleteArticle(articleId)
       .subscribe({
         next: (response: any) => {
-          console.log(response.success);
-          if (Boolean(response.success)) {
+          let errorCode: ErrorCodes = Number(response.code);
+          if (errorCode == ErrorCodes.NO_ERROR) {
             window.location.reload();
+            return;
+          }
+
+          if (errorCode == ErrorCodes.ARTICLE_DELETE_ERROR) {
+            this.hasError = true;
+            this.errorMessage = "An error occured!";
+            setTimeout(() => this.hasError = false, 3000);
+            return;
           }
         },
         error: (response) => {
@@ -106,9 +145,6 @@ export class AccountSettingsComponent implements OnInit {
   }
 
   updateSettings() {
-    // Handle the form submission for updating nickname and password
-    console.log('Settings updated:', this.user.nickname, this.user.password);
-    // Implement logic to update the user settings (e.g., call an API)
   }
 
   goToPreviousPage(): void {
@@ -137,21 +173,18 @@ export class AccountSettingsComponent implements OnInit {
 
   onDelete() {
     this.apiService.deleteUser()
-      .subscribe({
-        next: () => {
+      ?.subscribe({
+        next: (response: any) => {
+          let errorCode: ErrorCodes = Number(response.code);
+
+          if (errorCode == ErrorCodes.ARTICLE_DELETE_ERROR) {
+            this.hasError = true;
+            this.errorMessage = "An error occured!";
+            setTimeout(() => this.hasError = false, 3000);
+            return;
+          }
+
           this.router.navigate(["/login"]);
-        },
-        error: () => {
-
-        }
-      });
-  }
-
-  onSaveChanges() {
-    this.apiService.updateUser()
-      .subscribe({
-        next: () => {
-
         },
         error: () => {
 
@@ -165,11 +198,21 @@ export class AccountSettingsComponent implements OnInit {
 
   savePassword() {
     this.apiService.updateUserPassword(this.newPassword)
-      .subscribe({
+      ?.subscribe({
         next: (response: any) => {
-          if (Boolean(response.success)) {
+          let errorCode: ErrorCodes = Number(response.code);
+
+          if (errorCode == ErrorCodes.ARTICLE_DELETE_ERROR) {
+            this.hasError = true;
+            this.errorMessage = "An error occured!";
+            setTimeout(() => this.hasError = false, 3000);
+            return;
+          }
+
+          if (errorCode == ErrorCodes.NO_ERROR) {
             this.success = true;
             setTimeout(() => this.success = false, 3000);
+            return;
           }
         },
         error: (response: any) => {
@@ -181,10 +224,18 @@ export class AccountSettingsComponent implements OnInit {
   saveNickname() {
     console.log(this.newNickname)
     this.apiService.updateUserNickname(this.newNickname)
-      .subscribe({
+      ?.subscribe({
         next: (response: any) => {
-          console.log(response)
-          if (Boolean(response.success)) {
+          let errorCode: ErrorCodes = Number(response.code);
+
+          if (errorCode == ErrorCodes.ARTICLE_DELETE_ERROR) {
+            this.hasError = true;
+            this.errorMessage = "An error occured!";
+            setTimeout(() => this.hasError = false, 3000);
+            return;
+          }
+          
+          if (errorCode == ErrorCodes.NO_ERROR) {
             this.success = true;
             setTimeout(() => this.success = false, 3000);
             this.fetchUser();

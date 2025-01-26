@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { CommonModule } from '@angular/common';
 import { Article } from '../../models/article';
+import { ErrorCodes } from '../../error.codes';
 
 
 @Component({
@@ -19,6 +20,7 @@ export class HomeComponent implements OnInit {
   currentPage = 0;
   limit: number = 10;
   hasMoreArticles: boolean = true;
+  hasError: boolean = false;
 
   constructor(
     private apiService: ApiService
@@ -32,7 +34,12 @@ export class HomeComponent implements OnInit {
     this.apiService.getArticles(this.currentPage)
       .subscribe({
         next: (response: any) => {
-          this.articles = response.map((article: any) => {
+          let errorCode: ErrorCodes = Number(response.code);
+          if(errorCode == ErrorCodes.NO_ARTICLES) {
+            this.hasError = true;
+            return;
+          }
+          this.articles = response.data.map((article: any) => {
             return {
               title: article.title,
               content: article.body,
@@ -42,7 +49,7 @@ export class HomeComponent implements OnInit {
               id: article.id
             }
           });
-          this.hasMoreArticles = response.length === this.limit;
+          this.hasMoreArticles = response.data.length === this.limit;
         },
         error: () => {
           console.error("Error fetching articles");

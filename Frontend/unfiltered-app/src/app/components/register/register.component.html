@@ -27,6 +27,9 @@
                 <a routerLink="/login">Already have an account?</a>
             </div>
         </div>
+        <div class="banner" *ngIf="hasError">
+            <span>{{errorMessage}}</span>
+        </div>
    </body>
 </app-auth>
   

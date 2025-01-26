@@ -117,3 +117,17 @@ body {
         padding: 40px 15px 15px 15px;
     }
 }
+
+.banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    background-color: red; /* Green */
+  }

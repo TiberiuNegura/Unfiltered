@@ -10,6 +10,10 @@
     </aside>
 
     <div class="container">
+      <div *ngIf="hasError" class="no-articles-container">
+        <div class="no-articles-icon"></div>
+        <p class="no-articles-text">No articles available at the moment.</p>
+      </div>
       <div *ngFor="let article of articles">
         <a [routerLink]="['/article', article.id]" class="card-link">
           <div class="card">

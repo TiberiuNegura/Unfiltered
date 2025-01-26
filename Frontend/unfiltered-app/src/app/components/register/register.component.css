@@ -10,8 +10,10 @@
 }
 
 body {
-    background: #2e3b4e;  /* Darker background color */
-    color: #fff;  /* Light text color for contrast */
+    background: #2e3b4e;
+    /* Darker background color */
+    color: #fff;
+    /* Light text color for contrast */
 }
 
 /* Wrapper Style (Dark Background) */
@@ -20,12 +22,16 @@ body {
     min-height: 500px;
     margin: 80px auto;
     padding: 40px 30px 30px 30px;
-    background-color: #374151;  /* Darker gray background for the wrapper */
+    background-color: #374151;
+    /* Darker gray background for the wrapper */
     border-radius: 15px;
-    box-shadow: 
-        0 0 20px rgba(0, 255, 255, 0.6),  /* Cyan glow */
-        0 0 40px rgba(0, 255, 255, 0.3),  /* Larger cyan glow */
-        0 0 80px rgba(0, 255, 255, 0.15); /* Fainter cyan glow */
+    box-shadow:
+        0 0 20px rgba(0, 255, 255, 0.6),
+        /* Cyan glow */
+        0 0 40px rgba(0, 255, 255, 0.3),
+        /* Larger cyan glow */
+        0 0 80px rgba(0, 255, 255, 0.15);
+    /* Fainter cyan glow */
 }
 
 /* Logo Style */
@@ -40,7 +46,8 @@ body {
     object-fit: cover;
     border-radius: 50%;
     box-shadow: 0px 0px 3px rgba(255, 255, 255, 0.5),
-        0px 0px 0px 5px #374151,  /* Match the wrapper background color */
+        0px 0px 0px 5px #374151,
+        /* Match the wrapper background color */
         8px 8px 15px rgba(0, 0, 0, 0.3),
         -8px -8px 15px rgba(255, 255, 255, 0.1);
 }
@@ -52,7 +59,8 @@ body {
     letter-spacing: 1.3px;
     padding-left: 90px;
     padding-bottom: 20px;
-    color: #e0e0e0;  /* Lighter text color for better contrast on dark background */
+    color: #e0e0e0;
+    /* Lighter text color for better contrast on dark background */
 }
 
 /* Form Field Style */
@@ -61,9 +69,11 @@ body {
     display: block;
     border: none;
     outline: none;
-    background: #2a3742;  /* Dark input field background */
+    background: #2a3742;
+    /* Dark input field background */
     font-size: 1.2rem;
-    color: #e0e0e0;  /* Light text color inside input fields */
+    color: #e0e0e0;
+    /* Light text color inside input fields */
     padding: 10px 15px 10px 10px;
     border-radius: 5px;
 }
@@ -78,7 +88,8 @@ body {
 
 /* Icon Style */
 .wrapper .form-field .fas {
-    color: #b0b0b0;  /* Lighter icon color for better contrast */
+    color: #b0b0b0;
+    /* Lighter icon color for better contrast */
 }
 
 /* Button Style */
@@ -86,16 +97,20 @@ body {
     box-shadow: none;
     width: 100%;
     height: 40px;
-    background-color: #007b99;  /* Darker blue button */
+    background-color: #007b99;
+    /* Darker blue button */
     color: #fff;
     border-radius: 25px;
-    box-shadow: 3px 3px 8px rgba(0, 255, 255, 0.4),  /* Cyan blue glow */
-                -3px -3px 8px rgba(0, 255, 255, 0.2); /* Subtle negative shadow */
+    box-shadow: 3px 3px 8px rgba(0, 255, 255, 0.4),
+        /* Cyan blue glow */
+        -3px -3px 8px rgba(0, 255, 255, 0.2);
+    /* Subtle negative shadow */
     letter-spacing: 1.3px;
 }
 
 .wrapper .btn:hover {
-    background-color: #006080;  /* Slightly darker blue on hover */
+    background-color: #006080;
+    /* Slightly darker blue on hover */
 }
 
 /* Links */
@@ -116,4 +131,18 @@ body {
         margin: 30px 20px;
         padding: 40px 15px 15px 15px;
     }
+}
+
+.banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    background-color: red;
 }

@@ -19,6 +19,9 @@
                 <a routerLink="/register">Don't have an account?</a>
             </div>
         </div>
+        <div class="banner" *ngIf="hasError">
+            <span>{{errorMessage}}</span>
+        </div>
    </body>
 </app-auth>
   
