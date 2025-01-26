@@ -18,20 +18,19 @@ Platforma va permite utilizatorilor să își creeze conturi pentru a accesa fun
 - Cloneaza proiectul din repository
   ```markdown
   git clone <url_repo>
-  cd Backend/unfiltered-backend```
+  cd Backend/unfiltered-backend
 - Instalează dependențele cu Composer
   ```markdown
-  composer install```
-- Configurează variabilele de mediu
-  - In '.env':
+  composer install
+- Configurează variabilele de mediu (fisierul '.env')
     ```markdown
-    DATABASE_URL="mysql://<username>:<password>@127.0.0.1:3306/<nume_baza_date>"```
+    DATABASE_URL="mysql://<username>:<password>@127.0.0.1:3306/<nume_baza_date>"
 - Creeaza baza de date
   ```markdown
-  php bin/console doctrine:database:create```
+  php bin/console doctrine:database:create
 - Rulează migratiile
   ```markdown
-  php bin/console doctrine:migrations:migrate```
+  php bin/console doctrine:migrations:migrate
 - Porneste serverul
   ```markdown
-  symfony server:start```
+  symfony server:start
